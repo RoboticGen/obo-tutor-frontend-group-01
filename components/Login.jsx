@@ -43,7 +43,7 @@ function Login() {
               Login
             </button>
             <p className="text-white text-center">
-              Don't have an account?{" "}
+              Don&#39;t have an account?{" "}
               <Link href="/signup">
                 <span className="text-blue-300 cursor-pointer hover:text-blue-500">
                   Sign up
