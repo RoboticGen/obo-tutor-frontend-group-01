@@ -6,9 +6,18 @@ function Message({ message }) {
   const isChatGpt = message.role === "admin";
 
   return (
-    <div className={`py-5 text-white ${isChatGpt && "bg-[#434654]"}`}>
-      <div className="flex spaxe-x-5 px-10 max-w-2xl mx-auto">
-        <p className="pt-1 text-sm">{message.msg}</p>
+    <div
+      className={`py-5 mx-10 rounded-xl text-white ${
+        isChatGpt && "bg-[#434654]"
+      }`}
+    >
+      <div className="flex gap-5 items-center spaxe-x-5 px-10 max-w-2xl mx-5">
+        <img
+          className="rounded-full w-10 h-10"
+          src={isChatGpt ? "/robo-profile.jpeg" : "/prof.png"}
+          alt="user"
+        />
+        <p className="pt-1 text-md">{message.msg}</p>
       </div>
     </div>
   );

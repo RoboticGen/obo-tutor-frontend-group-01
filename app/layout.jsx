@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import GlobalContextProvider from "@/context/GlobalContextProvider";
+import Login from "@/components/Login";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,21 +12,12 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const session = true;
   return (
     <html lang="en">
       <body className={inter.className}>
         <GlobalContextProvider>
-          <div className="flex">
-            {/* Sidebar  */}
-            <div className="bg-[#202123] max-w-xs h-screen overflow-y-auto md:min-w-[20rem]">
-              <Sidebar />
-            </div>
-
-            {/* notification  */}
-            {/* <ClientProvider /> */}
-
-            <div className="bg-[#343541] flex-1 ">{children}</div>
-          </div>
+          <div>{children}</div>
         </GlobalContextProvider>
       </body>
     </html>
