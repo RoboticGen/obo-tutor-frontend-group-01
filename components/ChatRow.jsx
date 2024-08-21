@@ -25,7 +25,7 @@ function ChatRow({ chatId }) {
   const deleteChat = (e) => {
     e.stopPropagation();
     setChats(chats.filter((chat) => chat.id !== chatId));
-    router.push("/");
+    router.push("/chat");
   };
 
   return (
