@@ -4,6 +4,7 @@ import React from "react";
 import { useEffect } from "react";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import Message from "./Message";
+import axios from "axios";
 
 const newMassages = [
   {
@@ -68,13 +69,10 @@ const newMassages = [
   },
 ];
 
-function Chat() {
-  const { messages, setMessages } = useGlobalContext();
+function Chat({ chatId }) {
+  console.log(chatId);
+  const { messages, setMessages, userId } = useGlobalContext();
   const messageEndRef = React.useRef(null);
-
-  useEffect(() => {
-    setMessages(newMassages);
-  }, []);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });

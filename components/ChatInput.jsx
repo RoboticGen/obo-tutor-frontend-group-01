@@ -2,21 +2,49 @@
 import React from "react";
 import { PaperAirplaneIcon, UserIcon } from "@heroicons/react/24/outline";
 import { useGlobalContext } from "@/context/GlobalContextProvider";
+import axios from "axios";
 
 function ChatInput({ chatId }) {
-  const { messages, setMessages } = useGlobalContext();
+  const { messages, setMessages, userId } = useGlobalContext();
 
   const [prompt, setPrompt] = React.useState("");
-  const sendMessage = (e) => {
+  const sendMessage = async (e) => {
     e.preventDefault();
+    console.log("press input");
     const newMessage = {
-      msg_id: messages.length + 1,
-      chat_id: chatId,
-      msg: prompt,
-      role: "user",
+      user_id: userId,
+      chatbox_id: chatId,
+      message: prompt,
+      message_type: "user",
     };
-    setMessages([...messages, newMessage]);
+
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+
     setPrompt("");
+
+    // Send the message to the server from axios
+    try {
+      console.log("sending message");
+      const response = await axios.post(
+        "http://localhost:8000/chatbox/message",
+        newMessage,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(response.data);
+      const answer = {
+        user_id: userId,
+        chatbox_id: chatId,
+        message: response.data,
+        message_type: "gpt",
+      };
+      setMessages((prevMessages) => [...prevMessages, answer]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
   };
 
   return (

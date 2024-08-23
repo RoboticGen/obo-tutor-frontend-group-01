@@ -3,7 +3,7 @@ import React from "react";
 function Message({ message }) {
   console.log(message);
 
-  const isChatGpt = message.role === "admin";
+  const isChatGpt = message.message_type === "gpt";
 
   return (
     <div
@@ -17,7 +17,7 @@ function Message({ message }) {
           src={isChatGpt ? "/robo-profile.jpeg" : "/prof.png"}
           alt="user"
         />
-        <p className="pt-1 text-md">{message.msg}</p>
+        <p className="pt-1 text-md">{message.message}</p>
       </div>
     </div>
   );

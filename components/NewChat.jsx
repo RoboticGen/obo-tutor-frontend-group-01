@@ -1,16 +1,41 @@
 import React from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useGlobalContext } from "../context/GlobalContextProvider";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 function NewChat() {
-  const { chats, setChats } = useGlobalContext();
+  const { chats, setChats, userId } = useGlobalContext();
+  const router = useRouter();
 
-  const createNewChat = () => {
-    const newChat = {
-      id: chats.length + 1,
-      name: `Chat ${chats.length + 1}`,
-    };
-    setChats([...chats, newChat]);
+  const createNewChat = async () => {
+    // const newChat = {
+    //   id: chats.length + 1,
+    //   name: `Chat ${chats.length + 1}`,
+    // };
+    // setChats([...chats, newChat]);
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await axios.post(
+        "http://localhost:8000/chatbox",
+        {
+          user_id: userId,
+          chat_name: "",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to the Authorization header
+          },
+        }
+      );
+
+      console.log(res.data);
+      setChats([...chats, res.data]);
+      router.push(`/chats/${userId}/${res.data.id}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

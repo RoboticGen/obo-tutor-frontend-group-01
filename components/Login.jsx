@@ -3,15 +3,40 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useGlobalContext } from "../context/GlobalContextProvider";
+import axios from "axios";
 
 function Login() {
   const [session, setSession] = useState(false);
   const router = useRouter();
 
-  const handleLogin = () => {
+  const handleLogin = async (e) => {
     setSession(true);
+    e.preventDefault();
 
-    router.push("/chat");
+    const formData = new FormData(e.target);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    console.log(email, password);
+    // send data to server using axios
+    try {
+      const response = await axios.post("http://localhost:8000/login", {
+        email,
+        password,
+      });
+
+      console.log(response.data);
+
+      const token = response.data.access_token;
+      const user = response.data.user_details.id;
+
+      console.log(token, user);
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", user);
+      router.push(`/chats/${user}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="h-screen grid grid-cols-1 md:grid-cols-2 w-screen bg-blue-900">
@@ -29,11 +54,13 @@ function Login() {
               className="w-80 p-2 rounded-xl focus:outline-none outline-none active:outline-none"
               type="text"
               placeholder="Email"
+              name="email"
             />
             <input
               className="w-80 p-2 rounded-xl focus:outline-none outline-none active:outline-none"
               type="password"
               placeholder="Password"
+              name="password"
             />
 
             <button
