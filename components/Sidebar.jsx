@@ -4,9 +4,16 @@ import ChatRow from "./ChatRow";
 import NewChat from "./NewChat";
 import { useState, useEffect } from "react";
 import { useGlobalContext } from "../context/GlobalContextProvider";
+import { useRouter } from "next/navigation";
 
 function Sidebar() {
+  const router = useRouter();
   const { chats, setChats } = useGlobalContext();
+
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    router.push("/");
+  };
 
   return (
     <div className="p-2 flex flex-col h-screen">
@@ -21,7 +28,12 @@ function Sidebar() {
         })}
       </div>
 
-      <button className="text-white border-white border">Log out</button>
+      <button
+        onClick={logoutHandler}
+        className="text-white border-white border"
+      >
+        Log out
+      </button>
     </div>
   );
 }

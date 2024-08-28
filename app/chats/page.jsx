@@ -5,11 +5,12 @@ import { useGlobalContext } from "@/context/GlobalContextProvider";
 import { useEffect } from "react";
 export default function ChatHome({ params }) {
   const { userId, setUserId } = useGlobalContext();
-  const newUserId = params.userId;
 
   useEffect(() => {
-    setUserId(newUserId);
-  }, [newUserId]);
+    if (!localStorage.getItem("token")) {
+      router.push("/");
+    }
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center text-white px-2 h-screen">

@@ -6,69 +6,6 @@ import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import Message from "./Message";
 import axios from "axios";
 
-const newMassages = [
-  {
-    msg_id: 1,
-    chat_id: 1,
-    msg: "Hello",
-    role: "user",
-  },
-  {
-    msg_id: 2,
-    chat_id: 1,
-    msg: "Hi",
-    role: "admin",
-  },
-  {
-    msg_id: 3,
-    chat_id: 2,
-    msg: "Hello",
-    role: "user",
-  },
-  {
-    msg_id: 4,
-    chat_id: 2,
-    msg: "Hi",
-    role: "admin",
-  },
-  {
-    msg_id: 5,
-    chat_id: 3,
-    msg: "Hello",
-    role: "user",
-  },
-  {
-    msg_id: 6,
-    chat_id: 3,
-    msg: "Hi",
-    role: "admin",
-  },
-  {
-    msg_id: 7,
-    chat_id: 4,
-    msg: "Hello",
-    role: "user",
-  },
-  {
-    msg_id: 8,
-    chat_id: 4,
-    msg: "Hi",
-    role: "admin",
-  },
-  {
-    msg_id: 9,
-    chat_id: 5,
-    msg: "Hello",
-    role: "user",
-  },
-  {
-    msg_id: 10,
-    chat_id: 5,
-    msg: "Hi",
-    role: "admin",
-  },
-];
-
 function Chat({ chatId }) {
   console.log(chatId);
   const { messages, setMessages, userId } = useGlobalContext();
@@ -80,7 +17,7 @@ function Chat({ chatId }) {
 
   return (
     <div className="flex-1 overflow-y-auto">
-      {messages?.empty && (
+      {!messages.length && (
         <>
           <p className="mt-10 text-center text-white">
             Type a prompt in below to get started

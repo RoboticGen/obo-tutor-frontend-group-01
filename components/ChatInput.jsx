@@ -5,17 +5,25 @@ import { useGlobalContext } from "@/context/GlobalContextProvider";
 import axios from "axios";
 
 function ChatInput({ chatId }) {
-  const { messages, setMessages, userId } = useGlobalContext();
+  const {
+    chats,
+    setChats,
+    messages,
+    newChatboxNames,
+    setNewChatboxNames,
+    setMessages,
+    userId,
+  } = useGlobalContext();
 
   const [prompt, setPrompt] = React.useState("");
   const sendMessage = async (e) => {
     e.preventDefault();
     console.log("press input");
     const newMessage = {
-      user_id: userId,
       chatbox_id: chatId,
       message: prompt,
       message_type: "user",
+      user_id: 0,
     };
 
     setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -34,6 +42,31 @@ function ChatInput({ chatId }) {
           },
         }
       );
+
+      // check is this chatbox is new
+      if (messages.length === 0) {
+        const responseNew = await axios.put(
+          `http://localhost:8000/chatbox/${chatId}`,
+          {
+            chat_name: `${prompt}`,
+            user_id: 0,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+
+        window.location.reload();
+
+        console.log(responseNew.data);
+        setChats(responseNew.data);
+
+        console.log("new chatbox", chats);
+        setNewChatboxNames([...newChatboxNames, chatId]);
+      }
+
       console.log(response.data);
       const answer = {
         user_id: userId,

@@ -41,3 +41,30 @@ body {
     @apply rounded-lg px-5  py-3 text-sm flex items-center justify-center space-x-2 hover:bg-gray-700/70 cursor-pointer text-gray-400 transition-all duration-200 ease-out;
   }
 }
+
+.markdown-body h1 {
+  font-size: 2em;
+}
+
+.markdown-body h2 {
+  font-size: 1.8em;
+}
+
+.markdown-body h3 {
+  font-size: 1.5em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.markdown-body p {
+  font-size: 1em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.markdown-body ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  text-decoration: underline;
+  font-style: italic;
+  color: aquamarine;
+}

@@ -33,7 +33,7 @@ function Login() {
 
       localStorage.setItem("token", token);
       localStorage.setItem("user", user);
-      router.push(`/chats/${user}`);
+      router.push(`/chats/`);
     } catch (error) {
       console.log(error);
     }

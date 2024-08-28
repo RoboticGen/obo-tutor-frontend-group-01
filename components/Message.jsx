@@ -1,4 +1,5 @@
 import React from "react";
+import ReactMarkdown from "react-markdown";
 
 function Message({ message }) {
   console.log(message);
@@ -17,7 +18,9 @@ function Message({ message }) {
           src={isChatGpt ? "/robo-profile.jpeg" : "/prof.png"}
           alt="user"
         />
-        <p className="pt-1 text-md">{message.message}</p>
+        <ReactMarkdown className="pt-1 text-md markdown-body">
+          {message.message}
+        </ReactMarkdown>
       </div>
     </div>
   );

@@ -61,7 +61,7 @@ function Signup() {
       console.log("token", token);
 
       localStorage.setItem("token", token);
-      router.push(`/chats/${user}`);
+      router.push(`/chats/`);
     } catch (error) {
       console.log(error);
     }

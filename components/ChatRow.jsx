@@ -45,10 +45,23 @@ function ChatRow({ chatId }) {
     fetchChat(); // Call the async function
   }, [chatId]);
 
-  const deleteChat = (e) => {
-    e.stopPropagation();
-    setChats(chats.filter((chat) => chat.id !== chatId));
-    router.push("/chat");
+  const deleteChat = async () => {
+    try {
+      console.log("chatId", chatId);
+      const response = await axios.delete(
+        `http://localhost:8000/chatbox/${chatId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      setChats(chats.filter((chat) => chat.id !== chatId));
+      router.push("/chat");
+    } catch (error) {
+      console.error("Error deleting chat:", error);
+    }
   };
 
   return (
@@ -57,21 +70,20 @@ function ChatRow({ chatId }) {
         active && "bg-gray-700/50"
       }`}
     >
-      <Link
-        href={`/chats/${userId}/${chatId}`}
-        className={`chatRow m-1 flex-1`}
-      >
+      <Link href={`/chats/${chatId}`} className={`chatRow m-1 flex-1`}>
         <ChatBubbleLeftIcon className="h-5 w-5 text-gray-300" />
         <p className="text-white w-[100px] flex-1 hidden md:inline-flex truncate ">
           {chatboxName === "" ? `New Chat` : chatboxName}
         </p>
       </Link>
-      <div className="items-center py-5">
-        <TrashIcon
-          onClick={deleteChat}
-          className="h-5 w-5 text-gray-300 hover:text-red-700"
-        />
-      </div>
+      {active && (
+        <div className="items-center py-5">
+          <TrashIcon
+            onClick={deleteChat}
+            className="h-5 w-5 text-gray-300 hover:text-red-700"
+          />
+        </div>
+      )}
     </div>
   );
 }

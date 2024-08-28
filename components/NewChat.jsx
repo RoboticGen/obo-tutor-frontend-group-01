@@ -20,8 +20,8 @@ function NewChat() {
       const res = await axios.post(
         "http://localhost:8000/chatbox",
         {
-          user_id: userId,
           chat_name: "",
+          user_id: 0,
         },
         {
           headers: {
@@ -31,8 +31,10 @@ function NewChat() {
       );
 
       console.log(res.data);
-      setChats([...chats, res.data]);
-      router.push(`/chats/${userId}/${res.data.id}`);
+      setChats([res.data, ...chats]);
+      //refresh the page
+
+      router.push(`/chats/${res.data.id}`);
     } catch (error) {
       console.log(error);
     }

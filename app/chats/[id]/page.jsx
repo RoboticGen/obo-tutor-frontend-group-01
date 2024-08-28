@@ -4,17 +4,23 @@ import Chat from "@/components/Chat";
 import ChatInput from "@/components/ChatInput";
 import { useGlobalContext } from "@/context/GlobalContextProvider";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 function ChatInterface({ params }) {
+  const router = useRouter();
   const chatId = params.id;
   const { userId, messages, setMessages } = useGlobalContext();
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      router.push("/");
+    }
+
     console.log("chat opend");
     const fetchMessages = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/messages/${chatId}/${userId}`,
+          `http://localhost:8000/messages/${chatId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
