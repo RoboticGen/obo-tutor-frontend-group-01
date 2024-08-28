@@ -43,7 +43,7 @@ function GlobalContextProvider({ children }) {
     if (token) {
       fetchChats();
     }
-  }, [userId]);
+  }, []);
 
   return (
     <globalContext.Provider

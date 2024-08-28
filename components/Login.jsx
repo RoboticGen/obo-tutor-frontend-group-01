@@ -41,7 +41,7 @@ function Login() {
   return (
     <div className="h-screen grid grid-cols-1 md:grid-cols-2 w-screen bg-blue-900">
       <div className=" overflow-hidden opacity-70 hidden md:block">
-        <img className="w-full h-full" src="/login.jpg" alt="login image" />
+        <img className="w-full h-full" src="/login.webp" alt="login image" />
       </div>
       <div>
         <form onSubmit={handleLogin}>

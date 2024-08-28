@@ -70,7 +70,7 @@ function Signup() {
   return (
     <div className="h-screen grid grid-cols-1 md:grid-cols-2 w-screen bg-blue-900">
       <div className=" overflow-hidden opacity-70 hidden md:block">
-        <img className="w-full h-full" src="/login.jpg" alt="login image" />
+        <img className="w-full h-full" src="/login.webp" alt="login image" />
       </div>
       <div>
         <form onSubmit={handleSignup}>
@@ -96,7 +96,7 @@ function Signup() {
             <input
               className="w-80 p-2 rounded-xl focus:outline-none outline-none active:outline-none"
               type="text"
-              placeholder="Phone Number"
+              placeholder="Phone Number (07********)  "
               name="phone_number"
             />
             <input
@@ -125,6 +125,15 @@ function Signup() {
             >
               Sign Up
             </button>
+
+            <p className="text-white text-center">
+              Already have an account?{" "}
+              <Link href="/">
+                <span className="text-blue-300 cursor-pointer hover:text-blue-500">
+                  Login
+                </span>
+              </Link>
+            </p>
           </div>
         </form>
       </div>

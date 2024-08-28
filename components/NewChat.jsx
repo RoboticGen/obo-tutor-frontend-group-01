@@ -3,6 +3,7 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { useGlobalContext } from "../context/GlobalContextProvider";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
 function NewChat() {
   const { chats, setChats, userId } = useGlobalContext();
@@ -36,7 +37,16 @@ function NewChat() {
 
       router.push(`/chats/${res.data.id}`);
     } catch (error) {
-      console.log(error);
+      if (error.response.status === 401) {
+        toast.error("Please login to continue");
+
+        //remove token
+        localStorage.removeItem("token");
+
+        router.push("/");
+      } else {
+        toast.error("Something went wrong. Please try again");
+      }
     }
   };
 

@@ -3,8 +3,10 @@ import Image from "next/image";
 import { SunIcon } from "@heroicons/react/24/outline";
 import { useGlobalContext } from "@/context/GlobalContextProvider";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 export default function ChatHome({ params }) {
   const { userId, setUserId } = useGlobalContext();
+  const router = useRouter();
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {

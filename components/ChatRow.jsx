@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 function ChatRow({ chatId }) {
   const pathname = usePathname();
@@ -38,7 +39,15 @@ function ChatRow({ chatId }) {
 
         setChatboxName(response.data.chat_name);
       } catch (error) {
-        console.error("Error fetching chat:", error);
+        if (error.response.status === 401) {
+          toast.error("Please login to continue");
+          //remove token
+          localStorage.removeItem("token");
+
+          router.push("/");
+        } else {
+          toast.error("Something went wrong. Please try again");
+        }
       }
     };
 
@@ -58,9 +67,18 @@ function ChatRow({ chatId }) {
       );
 
       setChats(chats.filter((chat) => chat.id !== chatId));
+      toast.success("Chat deleted successfully");
       router.push("/chat");
     } catch (error) {
-      console.error("Error deleting chat:", error);
+      if (error.response.status === 401) {
+        toast.error("Please login to continue");
+        //remove token
+        localStorage.removeItem("token");
+
+        router.push("/");
+      } else {
+        toast.error("Something went wrong. Please try again");
+      }
     }
   };
 

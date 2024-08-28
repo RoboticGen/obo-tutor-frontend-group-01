@@ -3,6 +3,7 @@ import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import GlobalContextProvider from "@/context/GlobalContextProvider";
 import Login from "@/components/Login";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <GlobalContextProvider>
           <div>{children}</div>
+          <Toaster />
         </GlobalContextProvider>
       </body>
     </html>
