@@ -15,6 +15,9 @@ const globalContext = createContext({
 
   newChatboxNames: [],
   setNewChatboxNames: () => {},
+
+  isLogged: false,
+  setIsLogged: () => {},
 });
 
 function GlobalContextProvider({ children }) {
@@ -23,6 +26,8 @@ function GlobalContextProvider({ children }) {
   const [chats, setChats] = useState([]);
   const [messages, setMessages] = useState([]);
   const [newChatboxNames, setNewChatboxNames] = useState([]);
+
+  const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
     const fetchChats = async () => {
@@ -43,7 +48,7 @@ function GlobalContextProvider({ children }) {
     if (token) {
       fetchChats();
     }
-  }, []);
+  }, [isLogged]);
 
   return (
     <globalContext.Provider
@@ -56,6 +61,8 @@ function GlobalContextProvider({ children }) {
         setUserId,
         newChatboxNames,
         setNewChatboxNames,
+        isLogged,
+        setIsLogged,
       }}
     >
       {children}

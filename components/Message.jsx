@@ -12,13 +12,13 @@ function Message({ message }) {
         isChatGpt && "bg-[#434654]"
       }`}
     >
-      <div className="flex gap-5 items-center spaxe-x-5 px-10 max-w-2xl mx-5">
+      <div className="flex gap-5 spaxe-x-5 px-10 max-w-2xl mx-5">
         <img
           className="rounded-full w-10 h-10"
           src={isChatGpt ? "/robo-profile.jpeg" : "/prof.png"}
           alt="user"
         />
-        <ReactMarkdown className="pt-1 text-md markdown-body">
+        <ReactMarkdown className=" text-md markdown-body">
           {message.message}
         </ReactMarkdown>
       </div>

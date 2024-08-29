@@ -1,13 +1,22 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { use, useState, useEffect } from "react";
 import { useGlobalContext } from "../context/GlobalContextProvider";
 import axios from "axios";
 
 function Login() {
+  const { isLogged, setIsLogged } = useGlobalContext();
+
   const [session, setSession] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setIsLogged(true);
+      router.push("/chats");
+    }
+  }, []);
 
   const handleLogin = async (e) => {
     setSession(true);
@@ -33,6 +42,7 @@ function Login() {
 
       localStorage.setItem("token", token);
       localStorage.setItem("user", user);
+      setIsLogged(true);
       router.push(`/chats/`);
     } catch (error) {
       console.log(error);

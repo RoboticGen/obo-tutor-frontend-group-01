@@ -8,10 +8,12 @@ import { useRouter } from "next/navigation";
 
 function Sidebar() {
   const router = useRouter();
-  const { chats, setChats } = useGlobalContext();
+  const { chats, setChats, isLogged, setIsLogged } = useGlobalContext();
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
+    setIsLogged(false);
+
     router.push("/");
   };
 
