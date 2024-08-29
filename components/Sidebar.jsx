@@ -17,6 +17,10 @@ function Sidebar() {
     router.push("/");
   };
 
+  const profileHandler = () => {
+    router.push("/profile");
+  };
+
   return (
     <div className="p-2 flex flex-col h-screen">
       <div className="flex-1">
@@ -30,12 +34,21 @@ function Sidebar() {
         })}
       </div>
 
-      <button
-        onClick={logoutHandler}
-        className="text-white border-white border"
-      >
-        Log out
-      </button>
+      <div className="flex flex-col gap-2">
+        <button
+          onClick={profileHandler}
+          className="text-white border-white border"
+        >
+          Profile
+        </button>
+
+        <button
+          onClick={logoutHandler}
+          className="text-white border-white border"
+        >
+          Log out
+        </button>
+      </div>
     </div>
   );
 }
