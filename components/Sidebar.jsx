@@ -12,6 +12,7 @@ function Sidebar() {
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
+    setChats([]);
     setIsLogged(false);
 
     router.push("/");

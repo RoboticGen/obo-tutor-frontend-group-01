@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 function page() {
   const router = useRouter();
@@ -133,9 +134,13 @@ function page() {
                     </select>
                   </div>
 
-                  <button className="p-2 bg-blue-500 rounded-xl text-white">
-                    Save
-                  </button>
+                  <div>
+                    <Link href="/chats">
+                      <button className="p-2 bg-blue-500 rounded-xl text-white">
+                        Save
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </form>
 
@@ -167,9 +172,11 @@ function page() {
                       name="confirm_password"
                     />
                   </div>
-                  <button className="p-2 bg-blue-500 rounded-xl text-white">
-                    Change Password
-                  </button>
+                  <Link href="/chats">
+                    <button className="p-2 bg-blue-500 rounded-xl text-white">
+                      Change Password
+                    </button>
+                  </Link>
                 </div>
               </form>
             </div>

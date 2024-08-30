@@ -68,7 +68,7 @@ function ChatRow({ chatId }) {
 
       setChats(chats.filter((chat) => chat.id !== chatId));
       toast.success("Chat deleted successfully");
-      router.push("/chat");
+      router.push("/chats");
     } catch (error) {
       if (error.response.status === 401) {
         toast.error("Please login to continue");

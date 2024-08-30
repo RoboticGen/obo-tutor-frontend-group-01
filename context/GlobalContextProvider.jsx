@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 const globalContext = createContext({
   userId: null,
   setUserId: () => {},
+
   chats: [],
   setChats: () => {},
 
