@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <GlobalContextProvider>
-          <div>{children}</div>
+          <div className="scroll-m-0">{children}</div>
           <Toaster />
         </GlobalContextProvider>
       </body>

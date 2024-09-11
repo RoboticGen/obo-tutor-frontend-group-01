@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-function page() {
+function ProfilePage() {
   const router = useRouter();
   const [user, setUser] = useState({
     name: "John Doe",
@@ -187,4 +187,4 @@ function page() {
   );
 }
 
-export default page;
+export default ProfilePage;
