@@ -12,7 +12,7 @@ function Signup() {
   // get form data
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = window.localStorage.getItem("token");
 
     if (token) {
       router.push("/");

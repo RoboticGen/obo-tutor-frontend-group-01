@@ -16,7 +16,7 @@ function NewChat() {
     // };
     // setChats([...chats, newChat]);
     try {
-      const token = localStorage.getItem("token");
+      const token = window.localStorage.getItem("token");
 
       const res = await axios.post(
         "http://localhost:8000/chatbox",
@@ -41,7 +41,7 @@ function NewChat() {
         toast.error("Please login to continue");
 
         //remove token
-        localStorage.removeItem("token");
+        window.localStorage.removeItem("token");
 
         router.push("/");
       } else {

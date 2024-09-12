@@ -12,7 +12,7 @@ function Login() {
   const router = useRouter();
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (window.localStorage.getItem("token")) {
       setIsLogged(true);
       router.push("/chats");
     }

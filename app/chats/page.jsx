@@ -9,7 +9,7 @@ export default function ChatHome({ params }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    if (!window.localStorage.getItem("token")) {
       router.push("/");
     }
   }, []);

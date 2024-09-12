@@ -7,7 +7,8 @@ import { useGlobalContext } from "@/context/GlobalContextProvider";
 function SignupPage() {
   const { isLogged, setIsLogged } = useGlobalContext();
   const router = useRouter();
-  if (localStorage.getItem("token")) {
+
+  if (window.localStorage.getItem("token")) {
     setIsLogged(true);
     router.push("/chats");
   }

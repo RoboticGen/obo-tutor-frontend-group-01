@@ -11,7 +11,7 @@ function Sidebar() {
   const { chats, setChats, isLogged, setIsLogged } = useGlobalContext();
 
   const logoutHandler = () => {
-    localStorage.removeItem("token");
+    window.localStorage.removeItem("token");
     setChats([]);
     setIsLogged(false);
 
