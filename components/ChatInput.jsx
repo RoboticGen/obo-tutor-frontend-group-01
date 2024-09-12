@@ -48,7 +48,7 @@ function ChatInput({ chatId }) {
         newMessage,
         {
           headers: {
-            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -63,7 +63,7 @@ function ChatInput({ chatId }) {
           },
           {
             headers: {
-              Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
@@ -93,7 +93,7 @@ function ChatInput({ chatId }) {
         toast.error("Please login to continue");
 
         //remove token
-        window.localStorage.removeItem("token");
+        localStorage.removeItem("token");
 
         router.push("/");
       } else {

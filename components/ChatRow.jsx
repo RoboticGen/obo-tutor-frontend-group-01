@@ -32,7 +32,7 @@ function ChatRow({ chatId }) {
           `http://localhost:8000/chatbox/${chatId}`,
           {
             headers: {
-              Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
@@ -42,7 +42,7 @@ function ChatRow({ chatId }) {
         if (error.response.status === 401) {
           toast.error("Please login to continue");
           //remove token
-          window.localStorage.removeItem("token");
+          localStorage.removeItem("token");
 
           router.push("/");
         } else {
@@ -61,7 +61,7 @@ function ChatRow({ chatId }) {
         `http://localhost:8000/chatbox/${chatId}`,
         {
           headers: {
-            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -73,7 +73,7 @@ function ChatRow({ chatId }) {
       if (error.response.status === 401) {
         toast.error("Please login to continue");
         //remove token
-        window.localStorage.removeItem("token");
+        localStorage.removeItem("token");
 
         router.push("/");
       } else {
