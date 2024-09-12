@@ -1,17 +1,20 @@
 "use client";
 import Signup from "@/components/Signup";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from "@/context/GlobalContextProvider";
 
 function SignupPage() {
-  const { isLogged, setIsLogged } = useGlobalContext();
+  const { setIsLogged } = useGlobalContext();
   const router = useRouter();
 
-  if (window.localStorage.getItem("token")) {
-    setIsLogged(true);
-    router.push("/chats");
-  }
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLogged(true);
+      router.push("/chats");
+    }
+  }, [setIsLogged, router]);
 
   return <Signup />;
 }

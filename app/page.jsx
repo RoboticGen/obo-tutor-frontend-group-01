@@ -8,7 +8,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    if (window.localStorage.getItem("token")) {
+    if (localStorage.getItem("token")) {
       router.push("/chats");
     }
   }, []);

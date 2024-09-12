@@ -12,7 +12,7 @@ function ChatInterface({ params }) {
   const { userId, messages, setMessages } = useGlobalContext();
 
   useEffect(() => {
-    if (!window.localStorage.getItem("token")) {
+    if (!localStorage.getItem("token")) {
       router.push("/");
     }
 
@@ -23,7 +23,7 @@ function ChatInterface({ params }) {
           `http://localhost:8000/messages/${chatId}`,
           {
             headers: {
-              Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
