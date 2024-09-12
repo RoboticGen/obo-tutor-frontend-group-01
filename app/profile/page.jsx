@@ -2,48 +2,63 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 function ProfilePage() {
   const router = useRouter();
-  const [user, setUser] = useState({
-    name: "John Doe",
-    email: "john@gmail.com",
-    phone: "1234567890",
-    age: 25,
-    learning_rate: "Active",
-    role: "Student",
-    communication_format: "Textbook",
-    tone_style: "Neutral",
-  });
+  const [user, setUser] = useState();
 
-  //   useEffect(() => {
-  //     if (!localStorage.getItem("token")) {
-  //       router.push("/");
-  //     } else {
-  //       const fetchUser = async () => {
-  //         try {
-  //           const response = await axios.get(
-  //             `http://localhost:8000/chatbox/user`,
-  //             {
-  //               headers: {
-  //                 Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //               },
-  //             }
-  //           );
-  //           setUser(response.data);
-  //         } catch (error) {
-  //           if (error.response.status === 401) {
-  //             toast.error("Please login to continue");
-  //             localStorage.removeItem("token");
-  //             router.push("/");
-  //           } else {
-  //             toast.error("Something went wrong. Please try again");
-  //           }
-  //         }
-  //       };
-  //       fetchUser();
-  //     }
-  //   }, []);
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      router.push("/");
+    } else {
+      const fetchUser = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8000/user`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          setUser(response.data);
+          console.log(response.data, "user data");
+        } catch (error) {
+          console.log(error.response);
+          if (error.response.status === 401) {
+            toast.error("Please login to continue");
+            localStorage.removeItem("token");
+            router.push("/");
+          } else {
+            toast.error("Something went wrong. Please try again");
+          }
+        }
+      };
+      fetchUser();
+    }
+  }, []);
+
+  const handleProfileSubmit = async (e) => {
+    e.preventDefault();
+    // change the user detalis
+    try {
+      const response = await axios.put(`http://localhost:8000/user`, user, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      toast.success("Profile updated successfully");
+      router.push("/chats");
+      console.log(response.data);
+    } catch (error) {
+      if (error.response.status === 401) {
+        toast.error("Please login to continue");
+        localStorage.removeItem("token");
+        router.push("/");
+      } else {
+        toast.error("Something went wrong. Please try again");
+      }
+    }
+  };
 
   return (
     <div>
@@ -54,7 +69,9 @@ function ProfilePage() {
             <div className="flex flex-col gap-5 text-white">
               <div className="flex gap-2">
                 <div className="flex">Name:</div>
-                <div className="flex-1">{user.name}</div>
+                <div className="flex-1">
+                  {user.first_name + " " + user.last_name}
+                </div>
               </div>
               <div className="flex gap-2">
                 <div className="flex">Email:</div>
@@ -62,12 +79,18 @@ function ProfilePage() {
               </div>
               <div className="flex gap-2">
                 <div className="flex">Phone:</div>
-                <div className="flex-1">{user.phone}</div>
+                <div className="flex-1">{user.phone_number}</div>
               </div>
               <div className="flex gap-2">
                 <div className="flex">Age:</div>
                 <div className="flex-1">{user.age}</div>
               </div>
+
+              <Link href="/chats">
+                <button className="p-2 bg-blue-500 rounded-xl text-white">
+                  Back to Chats
+                </button>
+              </Link>
             </div>
           </div>
           <div className="flex-1">
@@ -80,7 +103,7 @@ function ProfilePage() {
                 Edit User Profile
               </h3>
 
-              <form>
+              <form onSubmit={handleProfileSubmit}>
                 <div className="flex flex-col gap-5">
                   <div className="flex gap-10 items-center">
                     <label className="text-white">Learning Rate</label>
@@ -135,16 +158,17 @@ function ProfilePage() {
                   </div>
 
                   <div>
-                    <Link href="/chats">
-                      <button className="p-2 bg-blue-500 rounded-xl text-white">
-                        Save
-                      </button>
-                    </Link>
+                    <button
+                      type="submit"
+                      className="p-2 bg-blue-500 rounded-xl text-white"
+                    >
+                      Save
+                    </button>
                   </div>
                 </div>
               </form>
 
-              <h3 className="text-left text-white text-xl">Change Password</h3>
+              {/* <h3 className="text-left text-white text-xl">Change Password</h3>
 
               <form>
                 <div className="flex flex-col gap-5">
@@ -178,7 +202,7 @@ function ProfilePage() {
                     </button>
                   </Link>
                 </div>
-              </form>
+              </form> */}
             </div>
           </div>
         </div>
