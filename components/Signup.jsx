@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { useGlobalContext } from "../context/GlobalContextProvider";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 function Signup() {
   const [session, setSession] = useState(false);
@@ -64,6 +65,13 @@ function Signup() {
       router.push(`/chats/`);
     } catch (error) {
       console.log(error);
+      if (error.response.status === 422) {
+        toast.error(error.response.data.detail);
+      } else if (error.response.status === 411) {
+        toast.error("User already exists");
+      } else {
+        toast.error("An error occured");
+      }
     }
   };
 
