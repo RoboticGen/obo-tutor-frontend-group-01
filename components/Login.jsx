@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { use, useState, useEffect } from "react";
 import { useGlobalContext } from "../context/GlobalContextProvider";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 function Login() {
   const { isLogged, setIsLogged } = useGlobalContext();
@@ -46,6 +47,11 @@ function Login() {
       router.push(`/chats/`);
     } catch (error) {
       console.log(error);
+      if (error.response.status === 404) {
+        toast.error("Invalid credentials");
+      } else {
+        toast.error("An error occured");
+      }
     }
   };
   return (
