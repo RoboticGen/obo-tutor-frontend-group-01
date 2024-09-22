@@ -83,9 +83,11 @@ function ChatInput({ chatId }) {
       const answer = {
         user_id: userId,
         chatbox_id: chatId,
-        message: response.data,
+        message: response.data.result,
+        related_images: response.data.relevant_images,
         message_type: "gpt",
       };
+
       setMessages((prevMessages) => [...prevMessages, answer]);
       setIsLoaded(false);
     } catch (error) {
