@@ -29,10 +29,13 @@ function Login() {
     console.log(email, password);
     // send data to server using axios
     try {
-      const response = await axios.post("http://localhost:8000/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + "/login",
+        {
+          email,
+          password,
+        }
+      );
 
       console.log(response.data);
 

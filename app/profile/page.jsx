@@ -15,11 +15,14 @@ function ProfilePage() {
     } else {
       const fetchUser = async () => {
         try {
-          const response = await axios.get(`http://localhost:8000/user`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
+          const response = await axios.get(
+            process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + `/user`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
           setUser(response.data);
           console.log(response.data, "user data");
         } catch (error) {
@@ -41,11 +44,15 @@ function ProfilePage() {
     e.preventDefault();
     // change the user detalis
     try {
-      const response = await axios.put(`http://localhost:8000/user`, user, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.put(
+        process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + `/user`,
+        user,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       toast.success("Profile updated successfully");
       router.push("/chats");
       console.log(response.data);

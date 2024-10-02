@@ -29,7 +29,7 @@ function ChatRow({ chatId }) {
     const fetchChat = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/chatbox/${chatId}`,
+          process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + `/chatbox/${chatId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -58,7 +58,7 @@ function ChatRow({ chatId }) {
     try {
       console.log("chatId", chatId);
       const response = await axios.delete(
-        `http://localhost:8000/chatbox/${chatId}`,
+        process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + `/chatbox/${chatId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

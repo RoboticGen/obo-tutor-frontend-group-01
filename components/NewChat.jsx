@@ -19,7 +19,7 @@ function NewChat() {
       const token = localStorage.getItem("token");
 
       const res = await axios.post(
-        "http://localhost:8000/chatbox",
+        process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + "/chatbox",
         {
           chat_name: "",
           user_id: 0,
