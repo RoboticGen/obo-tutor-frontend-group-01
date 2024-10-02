@@ -44,7 +44,7 @@ function ChatInput({ chatId }) {
       setIsLoaded(true);
       console.log("sending message");
       const response = await axios.post(
-        "http://localhost:8000/chatbox/message",
+        process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + "/chatbox/message",
         newMessage,
         {
           headers: {
@@ -56,7 +56,7 @@ function ChatInput({ chatId }) {
       // check is this chatbox is new
       if (messages.length === 0) {
         const responseNew = await axios.put(
-          `http://localhost:8000/chatbox/${chatId}`,
+          process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + `/chatbox/${chatId}`,
           {
             chat_name: `${prompt}`,
             user_id: 0,

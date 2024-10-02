@@ -11,6 +11,7 @@ function Signup() {
   const router = useRouter();
 
   // get form data
+  const domain = process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -43,7 +44,8 @@ function Signup() {
 
     try {
       console.log("password", password);
-      const response = await axios.post("http://localhost:8000/signup", {
+      console.log("domain", domain);
+      const response = await axios.post(domain + "/signup", {
         first_name: firstName,
         last_name: lastName,
         phone_number: phoneNumber,

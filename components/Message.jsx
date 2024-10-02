@@ -47,7 +47,7 @@ function Message({ message }) {
                 {related_images.map((image, index) => (
                   <img
                     key={index}
-                    src={"/images/" + image}
+                    src={image}
                     className="w-1/2  rounded-lg mb-5 touch-pinch-zoom "
                   />
                 ))}

@@ -20,7 +20,7 @@ function ChatInterface({ params }) {
     const fetchMessages = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/messages/${chatId}`,
+          process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + `/messages/${chatId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

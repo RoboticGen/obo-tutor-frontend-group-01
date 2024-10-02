@@ -34,7 +34,7 @@ function GlobalContextProvider({ children }) {
     const fetchChats = async () => {
       try {
         console.log("userId", userId);
-        const response = await axios.get(`http://localhost:8000/chatbox/user`, {
+        const response = await axios.get(process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + `/chatbox/user`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
