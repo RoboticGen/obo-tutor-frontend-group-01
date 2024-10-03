@@ -33,11 +33,14 @@ function Signup() {
     const age = parseInt(formData.get("age"));
     const email = formData.get("email");
     const password = formData.get("password");
-    const learning_rate = "Active";
-
+    const communication_rating = 5;
+    const leadership_rating = 5;
+    const behaviour_rating = 5;
+    const responsiveness_rating = 5;
+    const difficult_concepts = "";
+    const understood_concepts = "";
+    const activity_summary = "";
     const role = "Student";
-
-    const communication_format = "Textbook";
     const tone_style = "Neutral";
 
     // send data to server using axios
@@ -48,14 +51,20 @@ function Signup() {
       const response = await axios.post(domain + "/signup", {
         first_name: firstName,
         last_name: lastName,
-        phone_number: phoneNumber,
-        age,
-        learning_rate,
-        role,
-        communication_format,
-        tone_style,
         email,
         password,
+        role,
+        phone_number: phoneNumber,
+        age,
+        communication_rating,
+        leadership_rating,
+        behaviour_rating,
+        responsiveness_rating,
+        difficult_concepts,
+        understood_concepts,
+        activity_summary,
+
+        tone_style,
       });
 
       const token = response.data.access_token;

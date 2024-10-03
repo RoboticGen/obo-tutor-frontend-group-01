@@ -112,7 +112,7 @@ function ProfilePage() {
 
               <form onSubmit={handleProfileSubmit}>
                 <div className="flex flex-col gap-5">
-                  <div className="flex gap-10 items-center">
+                  {/* <div className="flex gap-10 items-center">
                     <label className="text-white">Learning Rate</label>
                     <select
                       className="p-2 rounded-xl focus:outline-none outline-none active:outline-none"
@@ -128,7 +128,7 @@ function ProfilePage() {
                       <option value="Intuitive">Intuitive</option>
                       <option value="Reflective">Reflective</option>
                     </select>
-                  </div>
+                  </div> */}
                   <div className="flex gap-10 items-center ">
                     <label className="text-white">Tone Style</label>
                     <select
@@ -145,7 +145,21 @@ function ProfilePage() {
                       <option value="Friendly">Friendly</option>
                     </select>
                   </div>
+
                   <div className="flex gap-10 items-center">
+                    <label className="text-white">Age</label>
+                    <input
+                      className="p-2 rounded-xl focus:outline-none outline-none active:outline-none"
+                      type="text"
+                      placeholder="Age"
+                      value={user.age}
+                      onChange={(e) =>
+                        setUser({ ...user, age: e.target.value })
+                      }
+                    />
+                  </div>
+
+                  {/* <div className="flex gap-10 items-center">
                     <label className="text-white">Communication Format</label>
                     <select
                       className="p-2 rounded-xl focus:outline-none outline-none active:outline-none"
@@ -162,7 +176,7 @@ function ProfilePage() {
                       <option value="Layman">Layman</option>
                       <option value="Storytelling">Storytelling</option>
                     </select>
-                  </div>
+                  </div> */}
 
                   <div>
                     <button
