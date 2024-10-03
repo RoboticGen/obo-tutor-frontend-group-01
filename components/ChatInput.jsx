@@ -19,12 +19,14 @@ function ChatInput({ chatId }) {
     setNewChatboxNames,
     setMessages,
     userId,
+    updateMessageList,
   } = useGlobalContext();
 
   const router = useRouter();
 
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [prompt, setPrompt] = React.useState("");
+
   const sendMessage = async (e) => {
     e.preventDefault();
     console.log("press input");
@@ -70,11 +72,14 @@ function ChatInput({ chatId }) {
 
         setIsLoaded(false);
 
-        window.location.reload();
+        // window.location.reload();
 
-        console.log(responseNew.data);
-        setChats(responseNew.data);
-
+        console.log({
+          from: "ChatInput",
+          data: responseNew.data,
+        });
+        // setChats(responseNew.data);
+        updateMessageList(responseNew.data);
         console.log("new chatbox", chats);
         setNewChatboxNames([...newChatboxNames, chatId]);
       }
