@@ -34,11 +34,14 @@ function GlobalContextProvider({ children }) {
     const fetchChats = async () => {
       try {
         console.log("userId", userId);
-        const response = await axios.get(process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + `/chatbox/user`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + `/chatbox/user`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         setChats(response.data); // Access the data after the promise resolves
       } catch (error) {
         console.error("Error fetching chatboxes:", error);
@@ -50,6 +53,10 @@ function GlobalContextProvider({ children }) {
       fetchChats();
     }
   }, [isLogged]);
+
+  function updateMessageList(messageList) {
+    setChats(messageList);
+  }
 
   return (
     <globalContext.Provider
@@ -64,6 +71,7 @@ function GlobalContextProvider({ children }) {
         setNewChatboxNames,
         isLogged,
         setIsLogged,
+        updateMessageList,
       }}
     >
       {children}
