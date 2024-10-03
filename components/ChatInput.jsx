@@ -118,13 +118,22 @@ function ChatInput({ chatId }) {
           className="p-5 space-x-5 flex items-center"
         >
           <UserIcon className="h-5 w-5 animate-bounce" />
-          <input
-            className="m focus:ouline-none bg-transparent outline-none flex-1 disabled:cursor-not-allowed disabled:text-white"
+
+          <textarea
+            className="m focus:outline-none bg-transparent outline-none flex-1 disabled:cursor-not-allowed disabled:text-white"
             value={prompt}
-            type="text"
             onChange={(e) => setPrompt(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault(); // Prevent new line
+                sendMessage(e); // Trigger the sendMessage function
+              }
+            }}
             placeholder="Type your message"
+            rows={2} // Adjust the number of rows as needed
+            cols={50} // Adjust the number of columns as needed
           />
+
           <button
             type="submit"
             disabled={!prompt}
