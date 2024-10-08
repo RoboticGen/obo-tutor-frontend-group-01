@@ -23,13 +23,16 @@ function Sidebar() {
   };
 
   return (
-    <div className="p-2 flex flex-col h-screen">
-      <div className="flex-1">
+    <div className="p-3 flex flex-col h-screen ">
+      <div>
+      <NewChat />
+      </div>
+      <div className="flex-1 overflow-y-auto">
         {/* new chat  */}
 
-        <NewChat />
+       
+        {/* model selection */}
 
-        <div>{/* model selection */}</div>
         {chats.map((chat) => {
           return <ChatRow key={chat.id} chatId={chat.id} />;
         })}
