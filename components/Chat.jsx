@@ -15,7 +15,7 @@ function Chat({ chatId }) {
   }, [messages]);
 
   return (
-    <div className="flex-1 overflow-y-auto">
+    <div className="flex-1 overflow-y-scroll">
       {!messages.length && (
         <>
           <p className="mt-10 text-center text-white">

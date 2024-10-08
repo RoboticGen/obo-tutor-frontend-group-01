@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 function App() {
   const router = useRouter();
   const [files, setFiles] = useState([]);
-  const [uploadResponse, setUploadResponse] = useState(null);
+  const [uploadResponse, setUploadResponse] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -27,6 +27,7 @@ function App() {
   };
 
   const handleFileUpload = async () => {
+    setUploadResponse("");
     setIsLoaded(true);
     const formData = new FormData();
 
@@ -38,7 +39,7 @@ function App() {
     try {
       // Make POST request to the FastAPI backend
       const response = await axios.post(
-        "http://localhost:8000/upload/",
+        "http://localhost:8001/model/upload/",
         formData,
         {
           headers: {
@@ -50,11 +51,11 @@ function App() {
       // Set the response state to display feedback
       setUploadResponse(response.data.message);
       setUploadedFiles(response.data.files);
-
-      setIsLoaded(false);
     } catch (error) {
       console.error("Error uploading files:", error);
-      setUploadResponse({ error: "Failed to upload files" });
+      setUploadResponse("Failed to upload files");
+    } finally {
+      setIsLoaded(false);
     }
   };
 
@@ -78,7 +79,7 @@ function App() {
         </button>
       </div>
 
-      <div className=" flex border border-blue-50 p-10 text-xl text-white">
+      <div className="flex border border-blue-50 p-10 text-xl text-white">
         <input
           className="bg-slate-800 p-5 rounded-md"
           type="file"
@@ -105,19 +106,20 @@ function App() {
         <div className="bg-slate-900/50 text-white m-5 p-5">
           <div>
             <h2>Upload Response:</h2>
-            {/* <pre>{JSON.stringify(uploadResponse, null, 2)}</pre> */}
             <h3>{uploadResponse}</h3>
           </div>
-          <div className="mt-5">
-            <h4>Uploaded Files:</h4>
-            <ul>
-              {uploadedFiles.map((file, index) => (
-                <li key={index} className="text-green-400">
-                  {file}
-                </li>
-              ))}
-            </ul>
-          </div>
+          {uploadedFiles.length > 0 && (
+            <div className="mt-5">
+              <h4>Uploaded Files:</h4>
+              <ul>
+                {uploadedFiles.map((file, index) => (
+                  <li key={index} className="text-green-400">
+                    {file}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
     </div>

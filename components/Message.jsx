@@ -20,7 +20,7 @@ function Message({ message }) {
 
   return (
     <div
-      className={`py-5 mx-10 rounded-xl text-white ${
+      className={`py-5 mx-5 rounded-xl text-white ${
         isChatGpt && "bg-[#434654]"
       }`}
     >
@@ -37,7 +37,7 @@ function Message({ message }) {
           </ReactMarkdown>
           {related_images.length > 0 && (
             <div className="flex gap-5">
-              {related_images.map((image, index) => (
+              {related_images.slice(0, -1).map((image, index) => (
                 <div
                   key={index}
                   className={`relative ${
