@@ -24,7 +24,6 @@ function ProfilePage() {
             }
           );
           setUser(response.data);
-          console.log(response.data, "user data");
         } catch (error) {
           console.log(error.response);
           if (error.response.status === 401) {
@@ -55,7 +54,6 @@ function ProfilePage() {
       );
       toast.success("Profile updated successfully");
       router.push("/chats");
-      console.log(response.data);
     } catch (error) {
       if (error.response.status === 401) {
         toast.error("Please login to continue");

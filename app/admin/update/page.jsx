@@ -51,7 +51,6 @@ function App() {
       setUploadResponse(response.data.message);
       setUploadedFiles(response.data.files);
 
-      console.log("Uploaded files:", response.data);
       setIsLoaded(false);
     } catch (error) {
       console.error("Error uploading files:", error);

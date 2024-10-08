@@ -29,7 +29,7 @@ function ChatInput({ chatId }) {
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    console.log("press input");
+
     const newMessage = {
       chatbox_id: chatId,
       message: prompt,
@@ -44,7 +44,7 @@ function ChatInput({ chatId }) {
     // Send the message to the server from axios
     try {
       setIsLoaded(true);
-      console.log("sending message");
+
       const response = await axios.post(
         process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + "/chatbox/message",
         newMessage,
@@ -74,17 +74,12 @@ function ChatInput({ chatId }) {
 
         // window.location.reload();
 
-        console.log({
-          from: "ChatInput",
-          data: responseNew.data,
-        });
         // setChats(responseNew.data);
         updateMessageList(responseNew.data);
-        console.log("new chatbox", chats);
+
         setNewChatboxNames([...newChatboxNames, chatId]);
       }
 
-      console.log(response.data);
       const answer = {
         user_id: userId,
         chatbox_id: chatId,

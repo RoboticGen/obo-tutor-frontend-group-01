@@ -13,7 +13,6 @@ import toast from "react-hot-toast";
 function ChatRow({ chatId }) {
   const pathname = usePathname();
   const router = useRouter();
-  console.log({ chatId });
 
   const { chats, setChats, userId } = useGlobalContext();
 
@@ -56,7 +55,6 @@ function ChatRow({ chatId }) {
 
   const deleteChat = async () => {
     try {
-      console.log("chatId", chatId);
       const response = await axios.delete(
         process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + `/chatbox/${chatId}`,
         {

@@ -7,7 +7,6 @@ import Message from "./Message";
 import axios from "axios";
 
 function Chat({ chatId }) {
-  console.log(chatId);
   const { messages, setMessages, userId } = useGlobalContext();
   const messageEndRef = React.useRef(null);
 
