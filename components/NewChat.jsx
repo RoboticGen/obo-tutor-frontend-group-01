@@ -31,7 +31,6 @@ function NewChat() {
         }
       );
 
-      console.log(res.data);
       setChats([res.data, ...chats]);
       //refresh the page
 

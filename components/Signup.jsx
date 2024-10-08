@@ -46,8 +46,6 @@ function Signup() {
     // send data to server using axios
 
     try {
-      console.log("password", password);
-      console.log("domain", domain);
       const response = await axios.post(domain + "/signup", {
         first_name: firstName,
         last_name: lastName,
@@ -69,8 +67,6 @@ function Signup() {
 
       const token = response.data.access_token;
       const user = response.data.user_id;
-
-      console.log("token", token);
 
       localStorage.setItem("token", token);
       router.push(`/chats/`);

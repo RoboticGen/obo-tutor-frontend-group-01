@@ -27,7 +27,7 @@ function Login() {
 
     const email = formData.get("email");
     const password = formData.get("password");
-    console.log(email, password);
+
     // send data to server using axios
     try {
       const response = await axios.post(
@@ -38,12 +38,8 @@ function Login() {
         }
       );
 
-      console.log(response.data);
-
       const token = response.data.access_token;
       const user = response.data.user_details.id;
-
-      console.log(token, user);
 
       localStorage.setItem("admin-token", token);
       localStorage.setItem("user", user);

@@ -48,8 +48,6 @@ function ProfilePage() {
       );
       toast.success("Profile updated successfully");
 
-      console.log(response.data);
-
       //reset the form
       setCommunicationRating("");
       setLeadershipRating("");
