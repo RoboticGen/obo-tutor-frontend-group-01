@@ -31,7 +31,7 @@ function Message({ message }) {
           alt="user"
         />
 
-        <div className="flex flex-col overflow-x-auto text-wrap">
+        <div className="flex flex-col overflow-x-auto overflow-y-hidden text-wrap">
           <ReactMarkdown className="text-md markdown-body">
             {message.message}
           </ReactMarkdown>
@@ -42,7 +42,7 @@ function Message({ message }) {
                   key={index}
                   className={`relative ${
                     selectedImage === index ? "border-2 border-blue-500" : ""
-                  }`}
+                  } pb-5`}
                   onClick={() => handleImageSelect(index)}
                 >
                   <Zoom>
