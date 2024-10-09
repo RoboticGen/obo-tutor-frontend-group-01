@@ -25,33 +25,8 @@ function ChatRow({ chatId }) {
   }, [pathname]);
 
   useEffect(() => {
-    const fetchChat = async () => {
-      try {
-        const response = await axios.get(
-          process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + `/chatbox/${chatId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-
-        setChatboxName(response.data.chat_name);
-      } catch (error) {
-        if (error.response.status === 401) {
-          toast.error("Please login to continue");
-          //remove token
-          localStorage.removeItem("token");
-
-          router.push("/");
-        } else {
-          toast.error("Something went wrong. Please try again");
-        }
-      }
-    };
-
-    fetchChat(); // Call the async function
-  }, [chatId]);
+    setChatboxName(chats.find((chat) => chat.id == chatId)?.chat_name);
+  }, [chats]);
 
   const deleteChat = async () => {
     try {
