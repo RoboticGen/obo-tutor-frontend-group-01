@@ -25,12 +25,11 @@ function Sidebar() {
   return (
     <div className="p-3 flex flex-col h-screen ">
       <div>
-      <NewChat />
+        <NewChat />
       </div>
       <div className="flex-1 overflow-y-auto">
         {/* new chat  */}
 
-       
         {/* model selection */}
 
         {chats.map((chat) => {

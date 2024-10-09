@@ -20,6 +20,7 @@ function ChatInput({ chatId }) {
     setMessages,
     userId,
     updateMessageList,
+    ...other
   } = useGlobalContext();
 
   const router = useRouter();
@@ -55,7 +56,6 @@ function ChatInput({ chatId }) {
         }
       );
 
-      // check is this chatbox is new
       if (messages.length === 0) {
         const responseNew = await axios.put(
           process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + `/chatbox/${chatId}`,
@@ -72,9 +72,6 @@ function ChatInput({ chatId }) {
 
         setIsLoaded(false);
 
-        // window.location.reload();
-
-        // setChats(responseNew.data);
         updateMessageList(responseNew.data);
 
         setNewChatboxNames([...newChatboxNames, chatId]);
