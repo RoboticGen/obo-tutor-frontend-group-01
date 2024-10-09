@@ -39,7 +39,7 @@ function App() {
     try {
       // Make POST request to the FastAPI backend
       const response = await axios.post(
-        "http://localhost:8001/model/upload/",
+        process.env.NEXT_PUBLIC_DOMAIN_NAME_MODEL + "/upload/",
         formData,
         {
           headers: {
