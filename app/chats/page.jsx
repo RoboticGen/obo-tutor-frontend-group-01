@@ -26,35 +26,9 @@ export default function ChatHome({ params }) {
           <div className="flex flex-col items-center justify-center mb-5">
             {/* sun icon  */}
             <SunIcon className="size-8 text-white" />
-            <h2 className="text-white">Examples</h2>
+            <h2 className="text-white">Example</h2>
           </div>
-          <div className="space-y-2">
-            <p className="infoText">Explain Something to me</p>
-            <p className="infoText">Explain Something to me</p>
-            <p className="infoText">Explain Something to me</p>
-          </div>
-        </div>
-        <div>
-          <div className="flex flex-col items-center justify-center mb-5">
-            {/* sun icon  */}
-            <SunIcon className="size-8 text-white" />
-            <h2 className="text-white">Examples</h2>
-          </div>
-          <div className="space-y-2">
-            <p className="infoText">Explain Something to me</p>
-            <p className="infoText">Explain Something to me</p>
-            <p className="infoText">Explain Something to me</p>
-          </div>
-        </div>
-        <div className="sm:hidden md:block">
-          <div className="flex flex-col items-center justify-center mb-5">
-            {/* sun icon  */}
-            <SunIcon className="size-8 text-white" />
-            <h2 className="text-white">Examples</h2>
-          </div>
-          <div className="space-y-2">
-            <p className="infoText">Explain Something to me</p>
-            <p className="infoText">Explain Something to me</p>
+          <div className="space-y-2 bg-slate-500/50 rounded-lg">
             <p className="infoText">Explain Something to me</p>
           </div>
         </div>

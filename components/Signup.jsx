@@ -133,6 +133,13 @@ function Signup() {
               type="password"
               placeholder="Password"
             />
+            <div className="text-red-400 w-80">
+              <p className="text-xs flex">
+                Password must be at least 8 characters, contain at least one
+                uppercase letter , contain at least one lowercase letter,
+                contain at least one digit{" "}
+              </p>
+            </div>
 
             <button
               type="submit"
