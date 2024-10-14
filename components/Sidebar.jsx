@@ -23,7 +23,7 @@ function Sidebar() {
   };
 
   return (
-    <div className="p-3 flex flex-col h-screen ">
+    <div className=" p-3 flex flex-col h-screen">
       <div>
         <NewChat />
       </div>

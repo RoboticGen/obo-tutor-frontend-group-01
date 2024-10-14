@@ -15,7 +15,7 @@ export default function ChatHome({ params }) {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center text-white px-2 h-screen">
+    <div className="flex flex-col items-center justify-center text-white px-2 h-full lg:h-screen">
       <div className="text-center flex  flex-col items-center p-5">
         <h1 className="text-white font-bold text-5xl">Obo Tutor</h1>
         <p className="text-white">The best way to learn</p>
