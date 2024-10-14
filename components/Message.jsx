@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
+import rehypeHighlight from "rehype-highlight";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
+import "katex/dist/katex.min.css";
+import "highlight.js/styles/github.css"; // Choose your style preference
+
+const CustomLink = ({ href, children }) => {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      {children}
+    </a>
+  );
+};
 
 function Message({ message }) {
-  const [related_images, setRelatedImages] = useState([]);
+  const [relatedImages, setRelatedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const isChatGpt = message.message_type === "gpt";
 
   useEffect(() => {
     if (!message.related_images) return;
-    const split_related_images = message.related_images.split(",");
-    setRelatedImages(split_related_images);
+    const splitRelatedImages = message.related_images.split(",");
+    setRelatedImages(splitRelatedImages);
   }, [message]);
 
   const handleImageSelect = (index) => {
@@ -21,23 +34,29 @@ function Message({ message }) {
   return (
     <div
       className={`py-5 mx-5 rounded-xl text-white ${
-        isChatGpt && "bg-[#434654]"
+        isChatGpt ? "bg-[#434654]" : ""
       }`}
     >
-      <div className="flex gap-5 space-x-5 px-10 max-w-3xl mx-5">
+      <div className="flex gap-5 px-10 max-w-3xl mx-5">
         <img
           className="rounded-full w-10 h-10"
           src={isChatGpt ? "/robo-profile.jpeg" : "/prof.png"}
-          alt="user"
+          alt={isChatGpt ? "Chatbot profile" : "User profile"}
         />
 
-        <div className="flex flex-col overflow-x-auto overflow-y-hidden text-wrap">
-          <ReactMarkdown className="text-md markdown-body">
-            {message.message}
-          </ReactMarkdown>
-          {related_images.length > 0 && (
+        <div className="flex flex-col overflow-x-auto text-wrap">
+          <ReactMarkdown
+            className="text-md markdown-body"
+            children={message.message}
+            remarkPlugins={[remarkMath]}
+            rehypePlugins={[rehypeKatex, rehypeHighlight]}
+            components={{
+              a: CustomLink,
+            }}
+          />
+          {relatedImages.length > 0 && (
             <div className="flex gap-5">
-              {related_images.slice(0, -1).map((image, index) => (
+              {relatedImages.slice(0, -1).map((image, index) => (
                 <div
                   key={index}
                   className={`relative ${
@@ -48,8 +67,8 @@ function Message({ message }) {
                   <Zoom>
                     <img
                       src={image}
-                      alt={`Image ${index + 1}`}
-                      className="w-full  rounded-lg  cursor-pointer"
+                      alt={`Related image ${index + 1}`}
+                      className="w-full rounded-lg cursor-pointer"
                     />
                   </Zoom>
                 </div>
