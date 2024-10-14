@@ -28,7 +28,7 @@ function ChatLayout({ children }) {
           )}
         </div>
         <div
-          className={`fixed bg-[#202123] h-screen lg:static pt-14 overflow-y-auto  lg:pt-0 ${
+          className={`fixed bg-[#202123] lg:static  overflow-y-auto  lg:pt-0 ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
           } lg:translate-x-0`}
         >
