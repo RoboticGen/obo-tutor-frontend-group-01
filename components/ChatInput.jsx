@@ -88,7 +88,7 @@ function ChatInput({ chatId }) {
       setMessages((prevMessages) => [...prevMessages, answer]);
       setIsLoaded(false);
     } catch (error) {
-      if (error.response.status === 401) {
+      if (error.response && error.response.status === 401) {
         toast.error("Please login to continue");
 
         //remove token

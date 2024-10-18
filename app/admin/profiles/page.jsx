@@ -38,7 +38,7 @@ function ProfilePage() {
         setData(response.data);
       })
       .catch((error) => {
-        if (error.response.status === 401) {
+        if (error.response && error.response.status === 401) {
           toast.error("Please login to continue");
           localStorage.removeItem("admin-token");
           router.push("/admin");

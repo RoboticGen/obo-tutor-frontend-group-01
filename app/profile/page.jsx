@@ -55,7 +55,7 @@ function ProfilePage() {
       toast.success("Profile updated successfully");
       router.push("/chats");
     } catch (error) {
-      if (error.response.status === 401) {
+      if (error.response && error.response.status === 401) {
         toast.error("Please login to continue");
         localStorage.removeItem("token");
         router.push("/");
