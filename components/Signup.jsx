@@ -143,7 +143,7 @@ function Signup() {
 
             <button
               type="submit"
-              className="w-80 p-2 animate-pulse hover:bg-blue-950 bg-blue-500 rounded-xl text-white"
+              className="w-80 p-2  hover:bg-blue-950 bg-blue-500 rounded-xl text-white"
             >
               Sign Up
             </button>

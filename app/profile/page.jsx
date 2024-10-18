@@ -68,7 +68,7 @@ function ProfilePage() {
   return (
     <div>
       {user && (
-        <div className="flex bg-blue-900 h-screen">
+        <div className="flex bg-[#202123] h-screen">
           <div className="flex flex-col p-10 gap-5 items-center bg-blue-950/50">
             <img src="/prof.png" className="h-10 w-10 rounded-full"></img>
             <div className="flex flex-col gap-5 text-white">
