@@ -45,7 +45,7 @@ function Login() {
       setIsLogged(true);
       router.push(`/chats/`);
     } catch (error) {
-      if (error.response && error.response.status === 404) {
+      if (error.response.status === 404) {
         toast.error("Invalid credentials");
       } else {
         toast.error("An error occured");

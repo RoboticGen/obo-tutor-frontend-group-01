@@ -43,7 +43,7 @@ function ChatRow({ chatId }) {
       toast.success("Chat deleted successfully");
       router.push("/chats");
     } catch (error) {
-      if (error.response && error.response.status === 401) {
+      if (error.response.status === 401) {
         toast.error("Please login to continue");
         //remove token
         localStorage.removeItem("token");

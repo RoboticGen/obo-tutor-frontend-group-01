@@ -36,7 +36,7 @@ function NewChat() {
 
       router.push(`/chats/${res.data.id}`);
     } catch (error) {
-      if (error.response && error.response.status === 401) {
+      if (error.response.status === 401) {
         toast.error("Please login to continue");
 
         //remove token
