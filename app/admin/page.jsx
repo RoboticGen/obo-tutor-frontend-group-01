@@ -47,7 +47,7 @@ function Login() {
       router.push(`/admin/update`);
     } catch (error) {
       console.log(error);
-      if (error.response && error.response.status === 404) {
+      if (error.response.status === 404) {
         toast.error("Invalid credentials");
       } else {
         toast.error("An error occured");
