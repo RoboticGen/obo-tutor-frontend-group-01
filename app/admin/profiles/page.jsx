@@ -149,7 +149,7 @@ function ProfilePage() {
       setStudentId("");
       setStudentEmail("");
 
-      axios
+      await axios
         .get(process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + "/students", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("admin-token")}`,
