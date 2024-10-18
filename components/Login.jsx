@@ -16,7 +16,7 @@ function Login() {
       setIsLogged(true);
       router.push("/chats");
     }
-  }, []);
+  }, [setIsLogged, router]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ function Login() {
       if (error.response?.status === 404) {
         toast.error("Invalid credentials");
       } else {
-        toast.error("An error occurred");
+        toast.error("An error occurred. Please try again.");
       }
     } finally {
       setSession(false);
@@ -64,9 +64,10 @@ function Login() {
             </h1>
             <input
               className="w-80 p-2 rounded-xl focus:outline-none"
-              type="text"
+              type="email"
               placeholder="Email"
               name="email"
+              aria-label="Email"
               required
             />
             <input
@@ -74,13 +75,15 @@ function Login() {
               type="password"
               placeholder="Password"
               name="password"
+              aria-label="Password"
               required
             />
             <button
               type="submit"
-              className="w-80 p-2 hover:bg-blue-950 bg-blue-500 rounded-xl text-white"
+              className="w-80 p-2 hover:bg-blue-950 bg-blue-500 rounded-xl text-white disabled:bg-gray-500"
+              disabled={session} // Disable button during submission
             >
-              Login
+              {session ? "Logging in..." : "Login"}
             </button>
             <p className="text-white text-center">
               Don&#39;t have an account?{" "}
