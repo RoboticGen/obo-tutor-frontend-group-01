@@ -72,9 +72,9 @@ function Signup() {
       router.push(`/chats/`);
     } catch (error) {
       console.log(error);
-      if (error.response.status === 422) {
+      if (error.response && error.response.status === 422) {
         toast.error(error.response.data.detail);
-      } else if (error.response.status === 411) {
+      } else if (error.response && error.response.status === 411) {
         toast.error("User already exists");
       } else {
         toast.error("An error occured");

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 function App() {
   const router = useRouter();
@@ -53,6 +54,8 @@ function App() {
       setUploadedFiles(response.data.files);
     } catch (error) {
       console.error("Error uploading files:", error);
+      toast.error("Failed to upload files");
+
       setUploadResponse("Failed to upload files");
     } finally {
       setIsLoaded(false);
@@ -78,6 +81,8 @@ function App() {
           Logout
         </button>
       </div>
+
+      <h2 className="text-red-500">Maximum 250 MB Size</h2>
 
       <div className="flex border border-blue-50 p-10 text-xl text-white">
         <input
