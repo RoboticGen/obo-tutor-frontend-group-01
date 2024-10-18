@@ -5,6 +5,9 @@ import Link from "next/link";
 import axios from "axios";
 import toast from "react-hot-toast";
 
+import { columns } from "./columns";
+import { DataTable } from "./data-table";
+
 function ProfilePage() {
   const router = useRouter();
   const [communicationRating, setCommunicationRating] = useState();
@@ -17,10 +20,32 @@ function ProfilePage() {
   const [studentId, setStudentId] = useState();
   const [studentEmail, setStudentEmail] = useState();
 
+  const [data, setData] = useState([]);
+
   useEffect(() => {
     if (!localStorage.getItem("admin-token")) {
       router.push("/admin");
     }
+
+    // get all students
+    axios
+      .get(process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + "/students", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("admin-token")}`,
+        },
+      })
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          toast.error("Please login to continue");
+          localStorage.removeItem("admin-token");
+          router.push("/admin");
+        } else {
+          toast.error("Something went wrong. Please try again");
+        }
+      });
   }, []);
 
   // get id by email
@@ -135,7 +160,7 @@ function ProfilePage() {
   };
 
   return (
-    <div>
+    <>
       <div className="flex bg-blue-900">
         <div className="flex flex-col p-10 gap-5 items-center bg-blue-950/50">
           <img src="/prof.png" className="h-10 w-10 rounded-full"></img>
@@ -293,11 +318,16 @@ function ProfilePage() {
                   Delete Student Profile
                 </button>
               </div>
+
+              <div>
+                <h3 className="text-left text-white text-xl">All Students</h3>
+                <DataTable columns={columns} data={data} />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
