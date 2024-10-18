@@ -149,13 +149,15 @@ function ProfilePage() {
       setStudentId("");
       setStudentEmail("");
 
-      axios.get(process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + "/students", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("admin-token")}`,
-        },
-      });
-
-      setData(response.data);
+      axios
+        .get(process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + "/students", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("admin-token")}`,
+          },
+        })
+        .then((response) => {
+          setData(response.data);
+        });
     } catch (error) {
       if (error.response.status === 401) {
         toast.error("Please login to continue");
