@@ -41,7 +41,7 @@ function Signup() {
     const understood_concepts = "";
     const activity_summary = "";
     const role = "Student";
-    const tone_style = "Neutral";
+    const tone_style = "Friendly";
 
     // send data to server using axios
 
