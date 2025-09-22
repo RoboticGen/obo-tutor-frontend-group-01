@@ -11,7 +11,7 @@ export default function Home() {
     if (localStorage.getItem("token")) {
       router.push("/chats");
     }
-  }, []);
+  }, [router]);
 
   return <Login />;
 }

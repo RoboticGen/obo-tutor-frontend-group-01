@@ -12,7 +12,7 @@ export default function ChatHome({ params }) {
     if (!localStorage.getItem("token")) {
       router.push("/");
     }
-  }, []);
+  }, [router]);
 
   return (
     <div className="flex flex-col items-center justify-center text-white px-2 h-full lg:h-screen">

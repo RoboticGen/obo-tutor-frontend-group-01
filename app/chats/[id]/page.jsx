@@ -34,7 +34,7 @@ function ChatInterface({ params }) {
       }
     };
     fetchMessages();
-  }, []);
+  }, [chatId, setMessages, router]);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">

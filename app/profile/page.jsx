@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 function ProfilePage() {
   const router = useRouter();
@@ -37,7 +38,7 @@ function ProfilePage() {
       };
       fetchUser();
     }
-  }, []);
+  }, [router]);
 
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
@@ -70,7 +71,7 @@ function ProfilePage() {
       {user && (
         <div className="flex bg-[#202123] h-screen">
           <div className="flex flex-col p-10 gap-5 items-center bg-blue-950/50">
-            <img src="/prof.png" className="h-10 w-10 rounded-full"></img>
+            <Image src="/prof.png" className="h-10 w-10 rounded-full" alt="Profile" width={40} height={40} />
             <div className="flex flex-col gap-5 text-white">
               <div className="flex gap-2">
                 <div className="flex">Name:</div>

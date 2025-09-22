@@ -4,9 +4,11 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import rehypeHighlight from "rehype-highlight";
 import Zoom from "react-medium-image-zoom";
+import Image from "next/image";
 import "react-medium-image-zoom/dist/styles.css";
 import "katex/dist/katex.min.css";
-import "highlight.js/styles/github.css"; // Choose your style preference
+import "highlight.js/styles/github-dark.css";
+import { ClipboardIcon, CheckIcon } from "@heroicons/react/24/outline";
 
 const CustomLink = ({ href, children }) => {
   return (
@@ -38,22 +40,25 @@ function Message({ message }) {
       }`}
     >
       <div className="flex gap-5 px-10 max-w-3xl mx-5">
-        <img
+        <Image
           className="rounded-full w-10 h-10"
           src={isChatGpt ? "/robo-profile.jpeg" : "/prof.png"}
-          alt={isChatGpt ? "Chatbot profile" : "User profile"}
+          alt={isChatGpt ? "AI Assistant" : "User"}
+          width={40}
+          height={40}
         />
 
         <div className="flex flex-col overflow-x-auto text-wrap">
           <ReactMarkdown
             className="text-md markdown-body"
-            children={message.message}
             remarkPlugins={[remarkMath]}
             rehypePlugins={[rehypeKatex, rehypeHighlight]}
             components={{
               a: CustomLink,
             }}
-          />
+          >
+            {message.message}
+          </ReactMarkdown>
           {relatedImages.length > 0 && (
             <div className="flex gap-5">
               {relatedImages.slice(0, -1).map((image, index) => (
@@ -65,9 +70,11 @@ function Message({ message }) {
                   onClick={() => handleImageSelect(index)}
                 >
                   <Zoom>
-                    <img
+                    <Image
                       src={image}
                       alt={`Related image ${index + 1}`}
+                      width={400}
+                      height={300}
                       className="w-full rounded-lg cursor-pointer"
                     />
                   </Zoom>

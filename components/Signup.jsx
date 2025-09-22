@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useGlobalContext } from "../context/GlobalContextProvider";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Image from "next/image";
 // Optionally, import a phone input component like react-phone-input-2 if you plan to add a dropdown for country code
 
 function Signup() {
@@ -17,7 +18,7 @@ function Signup() {
     if (token) {
       router.push("/chats");
     }
-  }, []);
+  }, [router]);
 
   const handleSignup = async (e) => {
     setSession(true);
@@ -83,7 +84,13 @@ function Signup() {
   return (
     <div className="h-screen grid grid-cols-1 md:grid-cols-2 w-screen bg-blue-900">
       <div className="overflow-hidden opacity-70 hidden md:block">
-        <img className="w-full h-full" src="/login.webp" alt="login image" />
+        <Image 
+          className="w-full h-full object-cover" 
+          src="/login.webp" 
+          alt="Education and learning illustration"
+          width={800}
+          height={600}
+        />
       </div>
       <div>
         <form onSubmit={handleSignup}>

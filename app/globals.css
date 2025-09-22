@@ -3,70 +3,129 @@
 @tailwind utilities;
 
 :root {
-  /* --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255; */
+  /* Custom CSS variables for consistent theming */
 }
 
 @media (prefers-color-scheme: dark) {
-  /* :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  } */
+  /* Dark mode styles are handled by Tailwind */
 }
 
 body {
-  /* color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
+  /* Responsive base styles */
+  @apply bg-background text-foreground;
+  @apply overflow-x-hidden; /* Prevent horizontal scroll */
 }
 
 @layer utilities {
-  /* .text-balance {
+  .text-balance {
     text-wrap: balance;
-  } */
+  }
+  
+  /* Custom scrollbar for webkit browsers */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
+  }
 }
 
 @layer components {
   .infoText {
-    @apply p-4 bg-gray-700/50 text-white rounded-lg max-w-[300px];
+    @apply p-4 bg-gray-700/50 text-white rounded-lg max-w-[300px] transition-all duration-200 hover:bg-gray-600/50;
   }
 
   .chatRow {
-    @apply rounded-lg px-5  py-3 text-sm flex items-center justify-center space-x-2 hover:bg-gray-700/70 cursor-pointer text-gray-400 transition-all duration-200 ease-out;
+    @apply rounded-lg px-5 py-3 text-sm flex items-center justify-center space-x-2 hover:bg-gray-700/70 cursor-pointer text-gray-400 transition-all duration-200 ease-out;
+  }
+  
+  /* Responsive container utilities */
+  .container-responsive {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Animation utilities */
+  .fade-in {
+    @apply animate-in fade-in duration-300;
+  }
+  
+  .slide-in {
+    @apply animate-in slide-in-from-bottom-4 duration-300;
   }
 }
 
+/* Markdown styling improvements */
 .markdown-body h1 {
-  font-size: 2em;
+  @apply text-2xl font-bold text-white mb-4 mt-6;
 }
 
 .markdown-body h2 {
-  font-size: 1.8em;
+  @apply text-xl font-semibold text-white mb-3 mt-5;
 }
 
 .markdown-body h3 {
-  font-size: 1.5em;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  @apply text-lg font-medium text-white mb-2 mt-4;
 }
+
 .markdown-body p {
-  font-size: 1em;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  @apply text-gray-100 mb-3 leading-relaxed;
 }
 
 .markdown-body ul {
-  list-style-type: disc;
-  margin-left: 20px;
-  text-decoration: underline;
-  font-style: italic;
-  color: aquamarine;
+  @apply list-disc list-inside text-gray-100 mb-3 space-y-1;
+}
+
+.markdown-body ol {
+  @apply list-decimal list-inside text-gray-100 mb-3 space-y-1;
+}
+
+.markdown-body li {
+  @apply text-gray-100;
+}
+
+.markdown-body code {
+  @apply bg-gray-700 text-blue-300 px-1.5 py-0.5 rounded text-sm;
+}
+
+.markdown-body pre {
+  @apply bg-gray-800 rounded-lg overflow-x-auto mb-4 p-4;
+}
+
+.markdown-body pre code {
+  @apply bg-transparent text-gray-100 p-0;
+}
+
+.markdown-body blockquote {
+  @apply border-l-4 border-blue-500 pl-4 italic text-gray-300 my-4;
+}
+
+.markdown-body a {
+  @apply text-blue-400 hover:text-blue-300 underline transition-colors duration-200;
+}
+
+/* Responsive breakpoints for better mobile experience */
+@media (max-width: 640px) {
+  .markdown-body h1 {
+    @apply text-xl;
+  }
+  
+  .markdown-body h2 {
+    @apply text-lg;
+  }
+  
+  .markdown-body h3 {
+    @apply text-base;
+  }
 }
 
 @layer base {
