@@ -162,7 +162,7 @@ function Login() {
             <div className="relative mb-6">
               <Image 
                 className="w-48 h-48 lg:w-56 lg:h-56 mx-auto rounded-full object-cover border-4 border-white border-opacity-20" 
-                src="/robo-profile.jpeg" 
+                src="/robo-profile.jpg" 
                 alt="RoboticGen LABS Robot"
                 width={300}
                 height={300}

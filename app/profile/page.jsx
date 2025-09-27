@@ -5,10 +5,21 @@ import Link from "next/link";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Image from "next/image";
+import { 
+  UserCircleIcon, 
+  EnvelopeIcon, 
+  PhoneIcon, 
+  CalendarIcon,
+  ArrowLeftIcon,
+  Cog6ToothIcon,
+  SparklesIcon,
+  CheckIcon
+} from "@heroicons/react/24/outline";
 
 function ProfilePage() {
   const router = useRouter();
   const [user, setUser] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -42,7 +53,8 @@ function ProfilePage() {
 
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
-    // change the user detalis
+    setIsLoading(true);
+    
     try {
       const response = await axios.put(
         process.env.NEXT_PUBLIC_DOMAIN_NAME_BACKEND + `/user`,
@@ -54,7 +66,6 @@ function ProfilePage() {
         }
       );
       toast.success("Profile updated successfully");
-      router.push("/chats");
     } catch (error) {
       if (error.response.status === 401) {
         toast.error("Please login to continue");
@@ -63,166 +74,174 @@ function ProfilePage() {
       } else {
         toast.error("Something went wrong. Please try again");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
       {user && (
-        <div className="flex bg-[#202123] h-screen">
-          <div className="flex flex-col p-10 gap-5 items-center bg-blue-950/50">
-            <Image src="/prof.png" className="h-10 w-10 rounded-full" alt="Profile" width={40} height={40} />
-            <div className="flex flex-col gap-5 text-white">
-              <div className="flex gap-2">
-                <div className="flex">Name:</div>
-                <div className="flex-1">
-                  {user.first_name + " " + user.last_name}
-                </div>
-              </div>
-              <div className="flex gap-2">
-                <div className="flex">Email:</div>
-                <div className="flex-1">{user.email}</div>
-              </div>
-              <div className="flex gap-2">
-                <div className="flex">Phone:</div>
-                <div className="flex-1">{user.phone_number}</div>
-              </div>
-              <div className="flex gap-2">
-                <div className="flex">Age:</div>
-                <div className="flex-1">{user.age}</div>
-              </div>
-
-              <Link href="/chats">
-                <button className="p-2 bg-blue-500 rounded-xl text-white">
-                  Back to Chats
-                </button>
+        <div className="container mx-auto px-4 py-8 max-w-6xl">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center space-x-4">
+              <Link 
+                href="/chats"
+                className="p-2 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-blue-200 text-blue-600 hover:bg-blue-50"
+              >
+                <ArrowLeftIcon className="w-5 h-5" />
               </Link>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-800">Profile Settings</h1>
+                <p className="text-gray-600">Manage your account and preferences</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2 bg-white px-4 py-2 rounded-lg shadow-md border border-blue-200">
+              <SparklesIcon className="w-5 h-5 text-blue-600" />
+              <span className="text-gray-700 font-medium">Obo Tutor</span>
             </div>
           </div>
-          <div className="flex-1">
-            <div className="flex flex-col gap-2 p-10">
-              <h1 className="text-5xl animate-bounce font-bold text-center text-white">
-                Obo Tutor
-              </h1>
 
-              <h3 className="text-left text-white text-xl">
-                Edit User Profile
-              </h3>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            {/* Profile Information Card */}
+            <div className="lg:col-span-1">
+              <div className="bg-white rounded-2xl shadow-lg border border-blue-100 p-6">
+                <div className="text-center mb-6">
+                  <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <UserCircleIcon className="w-12 h-12 text-white" />
+                  </div>
+                  <h2 className="text-xl font-bold text-gray-800 mb-1">
+                    {user.first_name + " " + user.last_name}
+                  </h2>
+                  <p className="text-blue-600 text-sm">Learning Assistant User</p>
+                </div>
 
-              <form onSubmit={handleProfileSubmit}>
-                <div className="flex flex-col gap-5">
-                  {/* <div className="flex gap-10 items-center">
-                    <label className="text-white">Learning Rate</label>
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <EnvelopeIcon className="w-5 h-5 text-gray-500" />
+                    <div>
+                      <p className="text-sm text-gray-500">Email</p>
+                      <p className="text-gray-800 font-medium">{user.email}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <PhoneIcon className="w-5 h-5 text-gray-500" />
+                    <div>
+                      <p className="text-sm text-gray-500">Phone</p>
+                      <p className="text-gray-800 font-medium">{user.phone_number || "Not provided"}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <CalendarIcon className="w-5 h-5 text-gray-500" />
+                    <div>
+                      <p className="text-sm text-gray-500">Age</p>
+                      <p className="text-gray-800 font-medium">{user.age || "Not provided"}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <p className="text-xs text-gray-500 text-center">
+                    Member since {new Date().getFullYear()}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Settings Form */}
+            <div className="lg:col-span-2">
+              <div className="bg-white rounded-2xl shadow-lg border border-blue-100 p-6">
+                <div className="flex items-center space-x-3 mb-6">
+                  <Cog6ToothIcon className="w-6 h-6 text-blue-600" />
+                  <h2 className="text-xl font-bold text-gray-800">Preferences</h2>
+                </div>
+
+                <form onSubmit={handleProfileSubmit} className="space-y-6">
+                  
+                  {/* Tone Style */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Communication Tone
+                    </label>
                     <select
-                      className="p-2 rounded-xl focus:outline-none outline-none active:outline-none"
-                      name="learning_rate"
-                      value={user.learning_rate}
-                      onChange={(e) =>
-                        setUser({ ...user, learning_rate: e.target.value })
-                      }
-                    >
-                      <option value="Visual">Visual</option>
-                      <option value="Verbal">Verbal</option>
-                      <option value="Active">Active</option>
-                      <option value="Intuitive">Intuitive</option>
-                      <option value="Reflective">Reflective</option>
-                    </select>
-                  </div> */}
-                  <div className="flex gap-10 items-center ">
-                    <label className="text-white">Tone Style</label>
-                    <select
-                      className="p-2 rounded-xl focus:outline-none outline-none active:outline-none"
-                      name="role"
-                      value={user.tone_style}
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      name="tone_style"
+                      value={user.tone_style || "Friendly"}
                       onChange={(e) =>
                         setUser({ ...user, tone_style: e.target.value })
                       }
                     >
-                      <option value="Encouraging">Encouraging</option>
-                      <option value="Neutral">Neutral</option>
-                      <option value="Informative">Informative</option>
-                      <option value="Friendly">Friendly</option>
+                      <option value="Encouraging">Encouraging - Motivating and supportive</option>
+                      <option value="Neutral">Neutral - Professional and balanced</option>
+                      <option value="Informative">Informative - Detailed and educational</option>
+                      <option value="Friendly">Friendly - Warm and approachable</option>
                     </select>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Choose how Obo Tutor communicates with you
+                    </p>
                   </div>
 
-                  <div className="flex gap-10 items-center">
-                    <label className="text-white">Age</label>
+                  {/* Age */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Age
+                    </label>
                     <input
-                      className="p-2 rounded-xl focus:outline-none outline-none active:outline-none"
-                      type="text"
-                      placeholder="Age"
-                      value={user.age}
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      type="number"
+                      placeholder="Enter your age"
+                      value={user.age || ""}
                       onChange={(e) =>
                         setUser({ ...user, age: e.target.value })
                       }
                     />
+                    <p className="text-xs text-gray-500 mt-1">
+                      This helps us customize content appropriate for your level
+                    </p>
                   </div>
 
-                  {/* <div className="flex gap-10 items-center">
-                    <label className="text-white">Communication Format</label>
-                    <select
-                      className="p-2 rounded-xl focus:outline-none outline-none active:outline-none"
-                      name="communication_format"
-                      value={user.communication_format}
-                      onChange={(e) =>
-                        setUser({
-                          ...user,
-                          communication_format: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="Textbook">Textbook</option>
-                      <option value="Layman">Layman</option>
-                      <option value="Storytelling">Storytelling</option>
-                    </select>
-                  </div> */}
+                  {/* Learning Preferences Info */}
+                  <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                    <h3 className="font-medium text-blue-900 mb-2">Learning Preferences</h3>
+                    <div className="text-sm text-blue-700 space-y-1">
+                      <p><strong>Current Tone:</strong> {user.tone_style || "Friendly"}</p>
+                      <p><strong>Content Level:</strong> {user.age ? `Age ${user.age} appropriate` : "General"}</p>
+                    </div>
+                  </div>
 
-                  <div>
+                  {/* Action Buttons */}
+                  <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
                     <button
                       type="submit"
-                      className="p-2 bg-blue-500 rounded-xl text-white"
+                      disabled={isLoading}
+                      className="flex items-center justify-center space-x-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-medium rounded-lg transition-colors duration-200 disabled:cursor-not-allowed"
                     >
-                      Save
+                      {isLoading ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          <span>Saving...</span>
+                        </>
+                      ) : (
+                        <>
+                          <CheckIcon className="w-4 h-4" />
+                          <span>Save Changes</span>
+                        </>
+                      )}
                     </button>
+                    
+                    <Link 
+                      href="/chats"
+                      className="flex items-center justify-center px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors duration-200"
+                    >
+                      Cancel
+                    </Link>
                   </div>
-                </div>
-              </form>
-
-              {/* <h3 className="text-left text-white text-xl">Change Password</h3>
-
-              <form>
-                <div className="flex flex-col gap-5">
-                  <div className="flex gap-10 items-center">
-                    <label className="text-white">Old Password</label>
-                    <input
-                      className="p-2 rounded-xl focus:outline-none outline-none active:outline-none"
-                      type="password"
-                      name="old_password"
-                    />
-                  </div>
-                  <div className="flex gap-10 items-center">
-                    <label className="text-white">New Password</label>
-                    <input
-                      className="p-2 rounded-xl focus:outline-none outline-none active:outline-none"
-                      type="password"
-                      name="new_password"
-                    />
-                  </div>
-                  <div className="flex gap-10 items-center">
-                    <label className="text-white">Confirm Password</label>
-                    <input
-                      className="p-2 rounded-xl focus:outline-none outline-none active:outline-none"
-                      type="password"
-                      name="confirm_password"
-                    />
-                  </div>
-                  <Link href="/chats">
-                    <button className="p-2 bg-blue-500 rounded-xl text-white">
-                      Change Password
-                    </button>
-                  </Link>
-                </div>
-              </form> */}
+                </form>
+              </div>
             </div>
           </div>
         </div>

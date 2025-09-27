@@ -28,6 +28,13 @@ function ChatInput({ chatId }) {
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [prompt, setPrompt] = React.useState("");
 
+  const handleTextareaChange = (e) => {
+    setPrompt(e.target.value);
+    // Auto-resize textarea
+    e.target.style.height = 'auto';
+    e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
+  };
+
   const sendMessage = async (e) => {
     e.preventDefault();
 
@@ -102,44 +109,54 @@ function ChatInput({ chatId }) {
   };
 
   return (
-    <div className="bg-gray-700/50 mx-5 my-2 text-white rounded-lg text-s">
-      {isLoaded && (
-        <div className="flex items-center justify-center">
-          <div className="w-5 h-5 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin"></div>
+    <div className="border-t border-gray-200 bg-white px-4 py-4">
+      <div className="max-w-4xl mx-auto">
+        {isLoaded ? (
+          <div className="flex items-center justify-center py-4">
+            <div className="flex items-center space-x-3 text-blue-600">
+              <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+              <span className="text-sm font-medium">Obo Tutor is thinking...</span>
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={sendMessage} className="flex items-end space-x-3">
+            <div className="flex-1">
+              <div className="relative">
+                <textarea
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-all duration-200 placeholder-gray-500"
+                  value={prompt}
+                  onChange={handleTextareaChange}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      sendMessage(e);
+                    }
+                  }}
+                  placeholder="Ask Obo Tutor anything..."
+                  rows={1}
+                  style={{
+                    minHeight: '44px',
+                    maxHeight: '120px'
+                  }}
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={!prompt.trim()}
+              className="p-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl transition-all duration-200 shadow-md hover:shadow-lg group"
+            >
+              <PaperAirplaneIcon className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+            </button>
+          </form>
+        )}
+
+        {/* Input hint */}
+        <div className="flex items-center justify-center mt-3 text-xs text-gray-400">
+          <span>Press Enter to send, Shift + Enter for new line</span>
         </div>
-      )}
-
-      {!isLoaded && (
-        <form
-          onSubmit={sendMessage}
-          className="p-5 space-x-5 flex items-center"
-        >
-          <UserIcon className="h-5 w-5 animate-bounce" />
-
-          <textarea
-            className="m focus:outline-none bg-transparent outline-none flex-1 disabled:cursor-not-allowed disabled:text-white"
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault(); // Prevent new line
-                sendMessage(e); // Trigger the sendMessage function
-              }
-            }}
-            placeholder="Type your message"
-            rows={2} // Adjust the number of rows as needed
-            cols={50} // Adjust the number of columns as needed
-          />
-
-          <button
-            type="submit"
-            disabled={!prompt}
-            className="bg-[#11A37F] hover:opacity-50 text-white font-bold px-4 py-2 rounded disabled:bg-gray-300 disabled:cursor-not-allowed"
-          >
-            <PaperAirplaneIcon className="h-5 w-5 -rotate-45 animate-pulse" />
-          </button>
-        </form>
-      )}
+      </div>
     </div>
   );
 }

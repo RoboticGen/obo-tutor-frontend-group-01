@@ -56,24 +56,32 @@ function ChatRow({ chatId }) {
   };
 
   return (
-    <div
-      className={`flex rounded-lg px-2 justify-center ${
-        active && "bg-gray-700/50"
-      }`}
-    >
-      <Link href={`/chats/${chatId}`} className={`chatRow m-1 flex-1`}>
-        <ChatBubbleLeftIcon className="h-5 w-5 text-gray-300" />
-        <p className="text-white w-[100px] flex-1 hidden md:inline-flex truncate ">
-          {chatboxName === "" ? `New Chat` : chatboxName}
+    <div className={`group relative rounded-lg transition-all duration-200 ${
+      active 
+        ? "bg-blue-100 border border-blue-200" 
+        : "hover:bg-gray-50 border border-transparent"
+    }`}>
+      <Link 
+        href={`/chats/${chatId}`} 
+        className="flex items-center space-x-3 px-3 py-2 w-full"
+      >
+        <ChatBubbleLeftIcon className={`w-4 h-4 ${
+          active ? "text-blue-600" : "text-gray-400 group-hover:text-gray-600"
+        }`} />
+        <p className={`flex-1 text-sm font-medium truncate ${
+          active ? "text-blue-900" : "text-gray-700"
+        }`}>
+          {chatboxName === "" ? "New Chat" : chatboxName}
         </p>
       </Link>
+      
       {active && (
-        <div className="items-center py-5">
-          <TrashIcon
-            onClick={deleteChat}
-            className="h-5 w-5 text-gray-300 hover:text-red-700"
-          />
-        </div>
+        <button
+          onClick={deleteChat}
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 rounded-md hover:bg-red-100 transition-colors group/delete"
+        >
+          <TrashIcon className="w-4 h-4 text-red-400 group-hover/delete:text-red-600" />
+        </button>
       )}
     </div>
   );

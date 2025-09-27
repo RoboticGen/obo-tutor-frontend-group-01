@@ -50,13 +50,13 @@ function NewChat() {
   };
 
   return (
-    <div
+    <button
       onClick={createNewChat}
-      className="border-blue-600 animate-pulse border chatRow my-2"
+      className="w-full flex items-center space-x-3 px-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-lg text-white shadow-md hover:shadow-lg transition-all duration-200 group"
     >
-      <PlusIcon className="h-4 w-4" />
-      <p>New Chat</p>
-    </div>
+      <PlusIcon className="w-5 h-5 group-hover:rotate-90 transition-transform duration-200" />
+      <span className="font-medium">New Chat</span>
+    </button>
   );
 }
 

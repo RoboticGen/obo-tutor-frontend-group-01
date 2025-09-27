@@ -10,36 +10,42 @@ function ChatLayout({ children }) {
     setIsSidebarOpen(!isSidebarOpen);
   };
   return (
-    <div className="flex">
-      {/* Sidebar  */}
+    <div className="flex h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
+      {/* Mobile Toggle Button */}
+      <button
+        onClick={toggleSidebar}
+        className="lg:hidden fixed top-4 left-4 z-30 p-2 bg-white shadow-lg rounded-lg border border-blue-200 text-blue-600 hover:bg-blue-50 transition-colors"
+      >
+        {isSidebarOpen ? (
+          <XMarkIcon className="w-6 h-6" />
+        ) : (
+          <Bars3Icon className="w-6 h-6" />
+        )}
+      </button>
 
-      <div className="bg-[#202123] max-w-xs h-screen overflow-y-auto lg:min-w-[20rem]">
-        <div>
-          {isSidebarOpen ? (
-            <XMarkIcon
-              className="lg:hidden p-2 bg-gray-600 text-white w-10 h-10 fixed top-4 left-4 z-20"
-              onClick={toggleSidebar}
-            />
-          ) : (
-            <Bars3Icon
-              className="lg:hidden p-2 bg-gray-600 text-white w-10 h-10 fixed top-4 left-4 z-20"
-              onClick={toggleSidebar}
-            />
-          )}
-        </div>
-        <div
-          className={`fixed bg-[#202123] lg:static  overflow-y-auto  lg:pt-0 ${
-            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } lg:translate-x-0`}
-        >
-          <Sidebar />
-        </div>
+      {/* Sidebar */}
+      <div className={`
+        fixed lg:relative z-20 lg:z-0 
+        w-80 lg:w-80 h-full
+        bg-white border-r border-blue-200 shadow-xl lg:shadow-none
+        transition-transform duration-300 ease-in-out
+        ${isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+      `}>
+        <Sidebar />
       </div>
 
-      {/* notification  */}
-      {/* <ClientProvider /> */}
+      {/* Overlay for mobile */}
+      {isSidebarOpen && (
+        <div 
+          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-10"
+          onClick={toggleSidebar}
+        />
+      )}
 
-      <div className="bg-[#343541] w-full h-screen lg:flex-1">{children}</div>
+      {/* Main Chat Area */}
+      <div className="flex-1 flex flex-col bg-white">
+        {children}
+      </div>
     </div>
   );
 }
